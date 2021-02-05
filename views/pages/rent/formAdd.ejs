@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<%- include('../../fragments/header.ejs') %>
+        <main>
+            <script type="application/javascript" src="/js/validationCommon.js"></script>
+            <script type="application/javascript" src="/js/validationRentForm.js"></script>
+            <h2><%= pageTitle %></h2>
+            <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateForm();">
+
+                    <label for="customer">Klient:<sup>*</sup></label>
+                    
+                    <select id="customer" name="customer_id"  required <%= (formMode == 'showDetails') ? 'disabled' : '' %> >
+                        <option value="" selected>--- Wybierz pracownika ---</option>
+                            <% for (let i=0; i<allCustomers.length; i++) { let customer = allCustomers[i]; %>
+                                <option value="<%= customer._id %>" label="<%= customer.firstName + ' ' + customer.lastName %>"></option>
+                            <% } %>
+                    </select>
+                    <span id="errorCustomer" class="errors-text"></span>
+
+                    <label for="car">Samochód:<sup>*</sup></label>
+                    <select class="car" id="car" name="car_id" required <%= (formMode == 'showDetails') ? 'disabled' : '' %> >
+                        <option value="" selected>--- Wybierz samochód ---</option>
+                        <% for (let i=0; i<allCars.length; i++) { let car = allCars[i]; %>
+                            <option class="carId" id="carId" value="<%= car._id + ',' + car.bail + ',' + car.price %>" label="<%= car.brand + ' ' + car.model %>"></option>
+                        <% } %>
+                    </select>
+                    <span id="errorCar" class="errors-text"></span>
+
+                    <label for="dateFrom">Data od:</label>
+                    <input class="dateFrom" id="dateFrom" type="date" name="dateFrom" id="dateFrom" />
+                    <span id="errorFromDate" class="errors-text"></span>
+
+                    <label for="dateTo">Data do:</label>
+                    <input class="dateTo" id="dateTo" type="date" name="dateTo" id="dateTo"/>
+                    <span id="errorToDate" class="errors-text"> </span>
+
+                    <label for="price">Cena:</label>
+                    <input class="price" id="price" type="number" name="price" id="price" />
+                    <span id="errorPrice" class="errors-text"></span>
+
+                    <label for="bail">Kaucja:</label>
+                    <input class="bail" id="bail" type="number" name="bail" />
+                    <span id="errorBail" class="errors-text"></span>
+
+                    <div class="form-buttons">
+                        <p id="errorsSummary" class="errors-text"></p>
+                            <input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
+                            <a class="form-button-cancel" href="/rent">Anuluj</a>
+                    </div>
+            </form>
+        </main>
+        
+        <script>
+            const selectElement = document.querySelector('.car');
+            const selectElement2 = document.querySelector('.dateTo');
+         
+            selectElement.addEventListener('change', (event) => {
+                
+            var str = event.target.value;
+            var strs = str.split(',');
+                selectElement2.addEventListener('change', (event2) => {
+                    const resultPrice = document.querySelector('.price');
+                    const resultBail = document.querySelector('.bail');
+                    const dateFrom = new Date(document.querySelector('.dateFrom').value);
+                    const dateTo = new Date(document.querySelector('.dateTo').value);
+            
+                    resultPrice.value = ((dateTo-dateFrom)/(1000 * 60 * 60 * 24))*strs[2];
+                    resultBail.value = strs[1];
+                })
+               
+            });
+        </script>
+
+<%- include('../../fragments/footer.ejs') %>

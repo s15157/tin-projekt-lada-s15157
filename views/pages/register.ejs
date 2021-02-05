@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<%- include('../fragments/header.ejs') %>
+
+        <main>
+            <script type="application/javascript" src="/js/validationCommon.js"></script>
+            <script type="application/javascript" src="/js/validationRegisterForm.js"></script>
+
+            <h2><%= pageTitle %></h2>
+            <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateForm();">
+                <input type="hidden" name="_id" value="<%= user._id %>">
+                    
+                    <label for="firstName">Imię:<sup>*</sup></label>
+                    <input type="text" name="firstName" id="firstName" placeholder="2-60 znaków" value="<%= user.firstName %>" class="<%= validationErrors.find(user => user.path.includes('firstName')) ? 'error-input' : '' %>"
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+                    <span id="errorFirstName" class="errors-text">
+                        <% if (validationErrors.find(user => user.path.includes('firstName'))) { %>
+                            <%= validationErrors.find(user => user.path.includes('firstName')).message %>
+                        <% } %>
+                    </span>
+
+                    <label for="lastName">Nazwisko:<sup>*</sup></label>
+                    <input type="text" name="lastName" id="lastName" placeholder="2-60 znaków" value="<%= user.lastName %>" class="<%= validationErrors.find(user => user.path.includes('lastName')) ? 'error-input' : '' %>"
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+                    <span id="errorLastName" class="errors-text">
+                        <% if (validationErrors.find(user => user.path.includes('lastName'))) { %>
+                            <%= validationErrors.find(user => user.path.includes('lastName')).message %>
+                        <% } %>
+                    </span>
+
+                    <label for="email">Email:<sup>*</sup></label>
+                    <input type="text" name="email" id="email" placeholder="np. nazwa@domena.pl" value="<%= user.email %>" class="<%= validationErrors.find(user => user.path.includes('email')) ? 'error-input' : '' %>"
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %> />
+                    <span id="errorEmail" class="errors-text">
+                        <% if (validationErrors.find(user => user.path.includes('email'))) { %>
+                            <%= validationErrors.find(user => user.path.includes('email')).message %>
+                        <% } %>
+                    </span>
+
+                    <label for="password">Hasło:<sup>*</sup></label>
+                    <input type="password" name="password" id="password" placeholder="Podaj hasło" value="<%= user.password %>" class="<%= validationErrors.find(user => user.path.includes('password')) ? 'error-input' : '' %>"
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %> />
+                    <span id="errorPassword" class="errors-text">
+                        <% if (validationErrors.find(user => user.path.includes('password'))) { %>
+                            <%= validationErrors.find(user => user.path.includes('password')).message %>
+                        <% } %>
+                    </span>
+
+                    <div class="form-buttons">
+                        <p id="errorsSummary" class="errors-text"></p>
+                            <input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
+                            <a class="form-button-cancel" href="/">Anuluj</a>
+                    </div>
+
+            </form>
+                
+        </main>
+<%- include('../fragments/footer.ejs') %>

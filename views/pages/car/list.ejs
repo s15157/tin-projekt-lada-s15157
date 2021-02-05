@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<%- include('../../fragments/header.ejs') %>
+
+        <main>
+            <% if(success != '') {%>
+                <div class="alert alert-success">
+                    <%= success %>
+                </div>
+            <% } %>
+            <h2>Lista samochodów</h2>
+            <table class="table-list">
+                <thead>
+                    <tr>
+                        <th>Marka</th>
+                        <th>Model</th>
+                        <th>Silnik</th>
+                        <th>Moc</th>
+                        <th>Typ</th>
+                        <th>Cena za dobę</th>
+                        <th>Kaucja</th>
+                        <th>Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let cars of car) { %>
+                        <tr>
+                            <td><%= cars.brand %></td>
+                            <td><%= cars.model %></td>
+                            <td><%= cars.engine %></td>
+                            <td><%= cars.power %></td>
+                            <td><%= cars.type %></td>
+                            <td><%= cars.price %></td>
+                            <td><%= cars.bail %></td>
+                            <td>
+                                <ul class="list-actions">
+                                    <li><a href="/car/details/<%=cars._id%>" class="list-actions-button-details">Szczegóły</a></li>
+                                    <% if(loggedUser && loggedUser.type == 'admin') { %>
+                                        <li><a href="/car/edit/<%=cars._id%>" class="list-actions-button-edit">Edytuj</a></li>
+                                        <li><a onclick="onclickHandler('<%=cars._id%>');" class="list-actions-button-delete">Usuń</a></li>
+                                    <% } %>
+                                </ul>
+                            </td>
+                        </tr>
+                    <% } %>
+                    </tbody>
+            </table>
+            <% if(loggedUser  && loggedUser.type == 'admin') { %>
+            <p><a href="/car/add" class="button-add">Dodaj nowy samochód</a></p>
+            <% } %>
+        </main>
+        <script type="text/javascript">
+
+            function onclickHandler(id) {
+                var result = confirm('Czy chcesz usunąć klienta?');
+                if (result == true) {
+                    window.location.href = "/car/delete/" + id;
+                }
+            }
+
+        </script>
+        <%- include('../../fragments/footer.ejs') %>

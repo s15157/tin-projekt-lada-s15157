@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<%- include('../../fragments/header.ejs') %>
+
+        <main>
+            <h2>Szczegóły klienta</h2>
+            <form class="form">
+                    <label for="firstName">Imię:<sup>*</sup></label>
+                    <input type="text" name="firstName" value="Jan" id="firstName" disabled/>
+                    <span></span>
+
+                    <label for="lastName">Nazwisko:<sup>*</sup></label>
+                    <input type="text" name="lastName" value="Kowalski" id="lastName" disabled/>
+                    <span></span>
+
+                    <label for="email">Email:<sup>*</sup></label>
+                    <input type="text" name="email" value="jan.kowalski@acme.com" id="email" disabled/>
+                    <span></span>
+
+                    <label for="pesel">PESEL:<sup>*</sup></label>
+                    <input type="number" name="pesel" value="94292929291" id="pesel" disabled/>
+                    <span></span>
+            </form>
+            <div class="form-buttons">
+                <a href="/customer/add" class="list-actions-button-edit">Edytuj</a>
+            </div>
+            
+            <h2>Szczegóły Wypożyczenia</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Marka</th>
+                        <th>Model</th>
+                        <th>DataOd</th>
+                        <th>DataDo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>AUDI</td>
+                        <td>RS6 C6</td>
+                        <td>2020-01-01</td>
+                        <td>2020-02-12</td>
+                    </tr>
+                    <tr>
+                        <td>BMW</td>
+                        <td>M3</td>
+                        <td>2020-10-26</td>
+                        <td>    -</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="/customer" class="list-actions-button-details">Powrót</a>
+        </main>
+
+<%- include('../../fragments/footer.ejs') %>

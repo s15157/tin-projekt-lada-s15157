@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<%- include('../../fragments/header.ejs') %>
+
+        <main>
+            <% if(success != '') {%>
+            <div class="alert alert-success">
+                <%= success %>
+            </div>
+            <% } %>
+            <h2>Lista klientów</h2>
+            <table class="table-list">
+                <thead>
+                    <tr>
+                        <th>Imię</th>
+                        <th>Nazwisko</th>
+                        <th>E-mail</th>
+                        <th>PESEL</th>
+                        <th>Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let customer of customers) { %>
+                        <tr>
+                            <td><%= customer.firstName %></td>
+                            <td><%= customer.lastName %></td>
+                            <td><%= customer.email %></td>
+                            <td><%= customer.pesel %></td>
+                            
+                            <td>
+                                <ul class="list-actions">
+                                    <li><a href="/customer/details/<%=customer._id%>" class="list-actions-button-details">Szczegóły</a></li>
+                                    <li><a href="/customer/edit/<%=customer._id%>" class="list-actions-button-edit">Edytuj</a></li>
+                                    <li><a onclick="onclickHandler('<%=customer._id%>');" class="list-actions-button-delete">Usuń</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+            <p><a href="/customer/add" class="button-add">Dodaj nowego klienta</a></p>
+            
+        </main>
+        <script type="text/javascript">
+
+            function onclickHandler(id) {
+                var result = confirm('Czy chcesz usunąć klienta?');
+                if (result == true) {
+                    window.location.href = "/customer/delete/" + id;
+                }
+            }
+
+        </script>
+<%- include('../../fragments/footer.ejs') %>

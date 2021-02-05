@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<%- include('../../fragments/header.ejs') %>
+
+        <main>
+            <h2>Szczegóły Wypożyczenia</h2>
+            <form class="form">
+
+                    <label for="employee">Marka:<sup>*</sup></label>
+                    <select name="employee" disabled>
+                        <option>AUDI</option>
+                        <option>BMW</option>
+                        <option>NISSAN</option>
+                    </select>
+                    <span></span>
+
+                    <label for="department">Model:<sup>*</sup></label>
+                    <select name="department" disabled>
+                        <option>RS6 C6</option>
+                        <option>M3</option>
+                        <option>GTR</option>
+                    </select>
+                    <span></span>
+
+                    <label for="department">Silnik:<sup>*</sup></label>
+                    <select name="department" disabled>
+                        <option>5000 cm3</option>
+                        <option>4000 cm3</option>
+                        <option>3600 cm3</option>
+                    </select>
+                    <span></span>
+                    
+                    <label for="department">Moc:<sup>*</sup></label>
+                    <select name="department" disabled>
+                        <option>400</option>
+                        <option>420</option>
+                        <option>600</option>
+                    </select>
+                    <span></span>
+
+                    <label for="department">Typ:<sup>*</sup></label>
+                    <select name="department" disabled>
+                        <option>Kombi</option>
+                        <option>Coupe</option>
+                        <option>Coupe</option>
+                    </select>
+                    <span></span>
+
+                    <label for="salary">Cena:</label>
+                    <input type="number" name="salary" id="salary" disabled/>
+                    <span></span>
+
+                <div class="form-buttons">
+                    <a href="/car/add" class="list-actions-button-edit">Edytuj</a>
+                    <a href="/car" class="list-actions-button-details">Powrót</a>
+                </div>
+            </form>
+        </main>
+
+        <%- include('../../fragments/footer.ejs') %>

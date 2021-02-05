@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<%- include('../../fragments/header.ejs') %>
+
+        <main>
+            <% if(success != '') {%>
+                <div class="alert alert-success">
+                    <%= success %>
+                </div>
+            <% } %>
+            <h2>Lista użytkowników</h2>
+            <table class="table-list">
+                <thead>
+                    <tr>
+                        <th>Imię</th>
+                        <th>Nazwisko</th>
+                        <th>E-mail</th>
+                        <th>Typ</th>
+                        <th>Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let user of users) { %>
+                        <tr>
+                            <td><%= user.firstName %></td>
+                            <td><%= user.lastName %></td>
+                            <td><%= user.email %></td>
+                            <td><%= user.type %></td>
+                            <td>
+                                <ul class="list-actions">
+                                    <li><a href="/register/user/details/<%=user._id%>" class="list-actions-button-details">Szczegóły</a></li>
+                                    <li><a href="/register/user/edit/<%=user._id%>" class="list-actions-button-edit">Edytuj</a></li>
+                                    <li><a onclick="onclickHandler('<%=user._id%>');" class="list-actions-button-delete">Usuń</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+            
+        </main>
+        <script type="text/javascript">
+
+            function onclickHandler(id) {
+                var result = confirm('Czy chcesz usunąć klienta?');
+                if (result == true) {
+                    window.location.href = "/register/user/delete/" + id;
+                }
+            }
+
+        </script>
+<%- include('../../fragments/footer.ejs') %>

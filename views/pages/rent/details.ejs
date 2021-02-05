@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<%- include('../../fragments/header.ejs') %>
+        <main>
+            <script type="application/javascript" src="/js/validationCommon.js"></script>
+            <script type="application/javascript" src="/js/validationRentForm.js"></script>
+                
+            <h2><%= pageTitle %></h2>
+            <form class="form" method="post" action="<%=formAction%>" onsubmit="return validateForm();" novalidate onsubmit="return validateForm();">
+                    <input type="hidden" name="_id" value="<%= rent._id %> ">
+
+                    <label for="customer">Klient:<sup>*</sup></label>
+                    
+                    <select id="customer" name="customerId" required <%= (formMode == 'showDetails') ? 'disabled' : '' %> >
+                                <option value="<%= rent.customer._id %>" label="<%= rent.customer.firstName + ' ' + rent.customer.lastName %>" selected></option>
+                    </select>
+                    <span id="errorCustomer" class="errors-text"></span>
+
+                    <label for="car">Samochód:<sup>*</sup></label>
+                    <select id="car" name="carId" required <%= (formMode == 'showDetails') ? 'disabled' : '' %> >
+                            <option value="<%= rent.car._id %>" label="<%= rent.car.brand + ' ' + rent.car.model %>" ></option>
+                    </select>
+                    <span id="errorCar" class="errors-text"></span>
+
+                    <label for="dateFrom">Data od:</label>
+                    <input type="date" name="dateFrom" class="dateFrom" id="dateFrom" value="<%= rent.dateFrom.toISOString().split('T')[0] %>" <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+                    <span id="errorFromDate" class="errors-text"></span>
+
+                    <label for="dateTo">Data do:</label>
+                    <input type="date" name="dateTo" class="dateTo" id="dateTo" value="<%= rent.dateTo.toISOString().split('T')[0] %>" <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+                    <span id="errorToDate" class="errors-text"></span>
+
+                    <label for="price">Cena:</label>
+                    <input type="number" name="price" class="price" id="price" value="<%= ((rent.dateTo - rent.dateFrom)/(1000 * 60 * 60 * 24))*rent.car.price %>" <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+                    <span id="errorPrice" class="errors-text"></span>
+                    <input type="hidden" id="pricePerDay" name="pricePerDay" value="<%= rent.car.price %> ">
+
+                    <label for="bail">Kaucja:</label>
+                    <input type="number" name="bail" id="bail" value="<%= rent.car.bail %>" <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+                    <span id="errorBail" class="errors-text"></span>
+                    
+                    <div class="form-buttons">
+                        <p id="errorsSummary" class="errors-text"></p>
+                        <% if (formMode != 'showDetails') { %>
+                            <input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
+                            <a class="form-button-cancel" href="/rent">Anuluj</a>
+                        <% } else if (formMode == 'showDetails') { %>                   
+                            <a class="form-button-edit" href="/rent/edit/<%= rent._id %>">Edytuj wypożyczenie</a>
+                            <a class="form-button-cancel" href="/rent">Anuluj</a>
+                        <% } else { %>
+                            <a class="form-button-cancel" href="/rent">Powrót</a>
+                        <% } %>
+                    </div>
+            </form>
+        </main>
+        <script>
+            const selectElement = document.querySelector('.dateTo');
+            const dateFrom = document.querySelector('.dateFrom');
+            const price = parseInt(document.getElementById("pricePerDay").value);
+
+            selectElement.addEventListener('change', (event) => {
+            const result = document.querySelector('.price');
+            const dateTo = new Date(selectElement.value);
+            const dateFroms = new Date(dateFrom.value);
+            result.value = ((dateTo-dateFroms)/(1000 * 60 * 60 * 24))*price;
+            });
+
+        </script>
+        
+<%- include('../../fragments/footer.ejs') %>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<%- include('../../fragments/header.ejs') %>
+
+        <main>
+            <script type="application/javascript" src="/js/validationCommon.js"></script>
+            <script type="application/javascript" src="/js/validationUserForm.js"></script>
+            <h2><%= pageTitle %></h2>
+            <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateForm();">
+                    <input type="hidden" name="_id" value="<%= user._id %>">
+                    
+                    <label for="firstName">Imię:<sup>*</sup></label>
+                    <input type="text" name="firstName" id="firstName" placeholder="2-60 znaków" value="<%= user.firstName %>"
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+                    <span id="errorFirstName" class="errors-text">
+                    </span>
+
+                    <label for="lastName">Nazwisko:<sup>*</sup></label>
+                    <input type="text" name="lastName" id="lastName" placeholder="2-60 znaków" value="<%= user.lastName %>"
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+                    <span id="errorLastName" class="errors-text"></span>
+
+                    <label for="email">Email:<sup>*</sup></label>
+                    <input type="text" name="email" id="email" placeholder="np. nazwa@domena.pl" value="<%= user.email %>"
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %> />
+                    <span id="errorEmail" class="errors-text"></span>
+
+                    <input type="hidden" name="password" value="<%= user.password %>">
+
+                    <label for="type">Typ:</label>
+                    <select id="type" name="type" required <%= (formMode == 'showDetails') ? 'disabled' : '' %> >
+                        <% if (formMode == 'showDetails') { %>
+                            <option value="" selected><%= user.type %></option>
+                            <option value="admin">Admin</option>
+                        <% } else { %>
+                            <option value="user" selected>User</option>
+                            <option value="admin">Admin</option>
+                        <% } %>
+                    </select>
+
+                    <div class="form-buttons">
+                        <p id="errorsSummary" class="errors-text"></p>
+                        <% if (formMode != 'showDetails') { %>
+                            <input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
+                            <a class="form-button-cancel" href="/register/users">Anuluj</a>
+                        <% } else if (formMode == 'showDetails') { %>                   
+                            <a class="form-button-edit" href="/register/user/edit/<%= user._id %>">Edytuj klienta</a>
+                            <a class="form-button-cancel" href="/register/user">Anuluj</a>
+                        <% } else { %>
+                            <a class="form-button-cancel" href="/register/user">Powrót</a>
+                        <% } %>
+                    </div>
+
+            </form>
+                
+        </main>
+<%- include('../../fragments/footer.ejs') %>
