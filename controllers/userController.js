@@ -63,8 +63,12 @@ exports.addUser = (req, res, next) => {
         .then(result => {
             UserRepository.getUser()
                 .then(users => {
-                    res.redirect('/');
-                });
+                    res.render('pages/users/list', {
+                        users: users,
+                        navLocation: 'user',
+                        success: 'Pomyślnie dodano użytkownika!'
+                    });
+    });
         }).catch(err => {
             res.render('pages/register', {
                 user: userData,

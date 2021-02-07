@@ -43,16 +43,9 @@
                 <span id="loginErrors"><%= loginError ? loginError : ''%></span>
             </form>
             </div>
-            <div id="register">
-                <div id="head-register">
-                    <h5>Nie masz konta?</h5>
-                </div>
-                <button onclick="window.location.href='/register'">Zarejestruj się!</button>
-            </div>
     <% } else { %>
         <div id="login-logged">
             <span>Jesteś zalogowany jako: <%=loggedUser.firstName + " " + loggedUser.lastName%></span>
-            <!-- <a href="/logout">Wyloguj się</a> -->
             <button onclick="window.location.href='/logout'">Wyloguj</button>
         </div>
     <% } %>

@@ -77,7 +77,7 @@
                             <input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
                             <a class="form-button-cancel" href="/car">Anuluj</a>
                         <% } else if (formMode == 'showDetails') { %>   
-                            <% if(loggedUser) { %>                
+                            <% if(loggedUser && loggedUser.type == 'admin') { %>                
                                 <a class="form-button-edit" href="/car/edit/<%= car._id %>">Edytuj samochód</a>
                             <% } %>
                             <a class="form-button-cancel" href="/car">Anuluj</a>

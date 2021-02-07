@@ -33,7 +33,9 @@
                             <td><%= cars.bail %></td>
                             <td>
                                 <ul class="list-actions">
+                                    <% if(loggedUser) { %>
                                     <li><a href="/car/details/<%=cars._id%>" class="list-actions-button-details">Szczegóły</a></li>
+                                    <% } %>
                                     <% if(loggedUser && loggedUser.type == 'admin') { %>
                                         <li><a href="/car/edit/<%=cars._id%>" class="list-actions-button-edit">Edytuj</a></li>
                                         <li><a onclick="onclickHandler('<%=cars._id%>');" class="list-actions-button-delete">Usuń</a></li>
